@@ -15,6 +15,7 @@ func main() {
 	r := gin.Default()
 
 	router.Routes(r)
+	router.AdminRoute(r)
 
 	r.Run(":8080")
 }
