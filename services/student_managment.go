@@ -168,7 +168,6 @@ func UpdateStudent(c *gin.Context) {
 }
 
 // delete student profile
-
 func DeleteStudent(c *gin.Context) {
 	id := c.Param("id")
 
