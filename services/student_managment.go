@@ -85,4 +85,78 @@ func UpdateStudent(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"err": "student not found"})
 		return
 	}
+
+	var data struct {
+		BranchID       *uint   `json:"branch_id"`
+		Admission_Date *string `json:"admissiondate"`
+		FirstName      *string `json:"firstname"`
+		SecondName     *string `json:"secondname"`
+		Age            *string `json:"age"`
+		PhoneNumber_1  *string `json:"phone1"`
+		PhoneNumber_2  *string `json:"phone2"`
+		Gender         *string `json:"gender"`
+		Address        *string `json:"address"`
+		GuardianName   *string `json:"guardianname"`
+		Grade          *string `json:"grade"`
+		Blood_Group    *string `json:"bloodgroup"`
+		Photo          *string `json:"photo"`
+	}
+
+	if err := c.ShouldBindJSON(&data); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"err": "invalid input"})
+		return
+	}
+
+	if data.BranchID != nil {
+		student.BranchID = *data.BranchID
+	}
+
+	if data.Admission_Date != nil {
+		student.Admission_Date = *data.Admission_Date
+	}
+
+	if data.FirstName != nil {
+		student.FirstName = *data.FirstName
+	}
+
+	if data.SecondName != nil {
+		student.SecondName = *data.SecondName
+	}
+
+	if data.Age != nil {
+		student.Age = *data.Age
+	}
+
+	if data.PhoneNumber_1 != nil {
+		student.PhoneNumber_1 = *data.PhoneNumber_1
+	}
+
+	if data.PhoneNumber_2 != nil {
+		student.PhoneNumber_2 = *data.PhoneNumber_2
+	}
+
+	if data.Gender != nil {
+		student.Gender = *data.Age
+	}
+
+	if data.Address != nil {
+		student.Address = *data.Address
+	}
+
+	if data.GuardianName != nil {
+		student.GuardianName = *data.GuardianName
+	}
+
+	if data.Grade != nil {
+		student.Grade = *data.Grade
+	}
+
+	if data.Blood_Group != nil {
+		student.Blood_Group = *data.Blood_Group
+	}
+
+	if data.Photo != nil {
+		student.Photo = *data.Photo
+	}
+
 }
