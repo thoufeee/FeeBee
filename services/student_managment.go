@@ -159,4 +159,36 @@ func UpdateStudent(c *gin.Context) {
 		student.Photo = *data.Photo
 	}
 
+	if err := db.DB.Save(&student).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"err": "failed to update student"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"res": "Student profile updated"})
+}
+
+// delete student profile
+
+func DeleteStudent(c *gin.Context) {
+	id := c.Param("id")
+
+	student_id, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"err": "inavlid id"})
+		return
+	}
+
+	var student model.Student
+
+	if err := db.DB.First(&student, student_id).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"err": "student not found"})
+		return
+	}
+
+	if err := db.DB.Unscoped().Delete(student).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"err": "failed to delete student"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"res": "successfuly deleted student"})
 }
