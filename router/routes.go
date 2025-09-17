@@ -21,4 +21,7 @@ func AdminRoute(c *gin.Engine) {
 	api.POST("/newbranch", services.NewBranch)
 	api.PUT("/updatebranch/:id", services.UpdateBranch)
 	api.DELETE("/deletebranch/:id", services.DeleteBranch)
+
+	api.POST("/addpayment", services.AddPayment)
+	api.GET("/getpayment", services.Allpayment)
 }
