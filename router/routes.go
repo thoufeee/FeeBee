@@ -20,12 +20,14 @@ func AdminRoute(c *gin.Engine) {
 
 	// branch
 	api.GET("/getbranch", services.GetBranches)
+	api.GET("/branch/:id", services.GetBranch)
 	api.POST("/newbranch", services.NewBranch)
 	api.PUT("/updatebranch/:id", services.UpdateBranch)
 	api.DELETE("/deletebranch/:id", services.DeleteBranch)
 
 	//  student
 	api.GET("/getstudet", services.AllStudents)
+	api.GET("/student/:id", services.GetStudent)
 	api.POST("/newstudent", services.AddNewStudent)
 	api.PUT("/updatestudent/:id", services.UpdateStudent)
 	api.DELETE("/deletestudent/:id", services.DeleteStudent)
