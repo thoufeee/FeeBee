@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 // list branch
@@ -19,6 +20,32 @@ func GetBranches(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, data)
+}
+
+// get branch by id
+func GetBranch(c *gin.Context) {
+	id := c.Param("id")
+
+	branch_id, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"err": "invalid id"})
+		return
+	}
+
+	var branch model.Branch
+
+	if err := db.DB.Find(&branch, branch_id).Error; err != nil {
+		if err == gorm.ErrRecordNotFound {
+			c.JSON(http.StatusNotFound, gin.H{"err": "student not found"})
+			return
+		}
+
+		c.JSON(http.StatusInternalServerError, gin.H{"err": "database error"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"res": branch})
+
 }
 
 // add branch

@@ -21,6 +21,26 @@ func AllStudents(c *gin.Context) {
 	c.JSON(http.StatusOK, data)
 }
 
+// get student by id
+func GetStudent(c *gin.Context) {
+	id := c.Param("id")
+
+	studet_id, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"err": "invalid id"})
+		return
+	}
+
+	var data model.Student
+
+	if err := db.DB.Find(&data, studet_id).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"err": "student not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"res": data})
+}
+
 // add new student
 func AddNewStudent(c *gin.Context) {
 	var data struct {
